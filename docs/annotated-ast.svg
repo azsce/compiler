@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 340">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .border { fill: none; stroke: #003366; stroke-width: 2; }
+      .header-bg { fill: #003366; }
+      .header-text { fill: white; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 16px; font-weight: bold; }
+      .node-name { fill: #003366; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; font-weight: bold; }
+      .node-value { fill: #8b0000; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; }
+      .type-label { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 12px; font-style: italic; }
+      .tree-line { stroke: #006699; stroke-width: 1.5; fill: none; }
+      .connector { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; }
+      .section-bg-1 { fill: #e6f2ff; }
+      .section-bg-2 { fill: #ffffff; }
+      .section-bg-3 { fill: #e6f2ff; }
+      .divider { stroke: #ccd9e6; stroke-width: 1; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" width="580" height="340" rx="8"/>
+  <rect class="border" x="1" y="1" width="578" height="338" rx="8"/>
+  
+  <!-- Header -->
+  <rect class="header-bg" x="1" y="1" width="578" height="36" rx="8"/>
+  <rect class="header-bg" x="1" y="26" width="578" height="12"/>
+  <text class="header-text" x="290" y="25" text-anchor="middle">Annotated AST with Resolved Types</text>
+  
+  <!-- Section backgrounds -->
+  <rect class="section-bg-1" x="2" y="38" width="576" height="70"/>
+  <rect class="section-bg-2" x="2" y="108" width="576" height="70"/>
+  <rect class="section-bg-3" x="2" y="178" width="576" height="158"/>
+  
+  <!-- Dividers -->
+  <line class="divider" x1="2" y1="108" x2="578" y2="108"/>
+  <line class="divider" x1="2" y1="178" x2="578" y2="178"/>
+  
+  <!-- Assignment x = 10 -->
+  <text class="node-name" x="20" y="65">Assignment</text>
+  <text class="node-value" x="110" y="65">(x)</text>
+  <text class="connector" x="20" y="90">+--</text>
+  <text class="node-name" x="55" y="90">Literal</text>
+  <text class="node-value" x="110" y="90">(10,</text>
+  <text class="type-label" x="145" y="90">resolvedType: Integer)</text>
+  
+  <!-- Assignment y = 3.14 -->
+  <text class="node-name" x="20" y="135">Assignment</text>
+  <text class="node-value" x="110" y="135">(y)</text>
+  <text class="connector" x="20" y="160">+--</text>
+  <text class="node-name" x="55" y="160">Literal</text>
+  <text class="node-value" x="110" y="160">(3.14,</text>
+  <text class="type-label" x="160" y="160">resolvedType: Float)</text>
+  
+  <!-- Assignment z = x + y -->
+  <text class="node-name" x="20" y="205">Assignment</text>
+  <text class="node-value" x="110" y="205">(z)</text>
+  <text class="connector" x="20" y="235">+--</text>
+  <text class="node-name" x="55" y="235">BinaryExpr</text>
+  <text class="node-value" x="135" y="235">(+,</text>
+  <text class="type-label" x="165" y="235">resolvedType: Float)</text>
+  
+  <!-- Tree lines for BinaryExpr children -->
+  <text class="connector" x="55" y="265">|--</text>
+  <text class="node-name" x="90" y="265">Variable</text>
+  <text class="node-value" x="165" y="265">(x,</text>
+  <text class="type-label" x="195" y="265">resolvedType: Integer)</text>
+  
+  <text class="connector" x="55" y="295">+--</text>
+  <text class="node-name" x="90" y="295">Variable</text>
+  <text class="node-value" x="165" y="295">(y,</text>
+  <text class="type-label" x="195" y="295">resolvedType: Float)</text>
+  
+  <!-- Type promotion note -->
+  <text class="type-label" x="380" y="265">Integer + Float</text>
+  <text class="type-label" x="380" y="285">= Float</text>
+  
+</svg>

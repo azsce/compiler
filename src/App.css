@@ -1,0 +1,284 @@
+/* Mini Math Compiler - Main Application Styles */
+
+/* Root container - full viewport */
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Main app container */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Header */
+.app-header {
+  padding: 0.75rem 1rem;
+  background-color: #1a1a2e;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #e0e0e0;
+}
+
+/* Split pane container */
+.split-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Gutter styling for react-split */
+.gutter {
+  background-color: #333;
+  cursor: col-resize;
+}
+
+.gutter:hover {
+  background-color: #4a4a4a;
+}
+
+/* Panel base styles */
+.panel {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Editor Panel */
+.editor-panel {
+  background-color: #1e1e1e;
+}
+
+.editor-panel .cm-editor {
+  height: 100%;
+}
+
+.editor-panel .cm-scroller {
+  overflow: auto;
+}
+
+/* Output Panel */
+.output-panel {
+  background-color: #252526;
+  padding: 1rem;
+}
+
+/* Phase Selector */
+.phase-selector {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.phase-selector button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #444;
+  background-color: #2d2d2d;
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.phase-selector button:hover {
+  background-color: #3d3d3d;
+  border-color: #555;
+}
+
+.phase-selector button.selected {
+  background-color: #0e639c;
+  border-color: #1177bb;
+  color: #fff;
+}
+
+/* Output content area */
+.output-content {
+  flex: 1;
+  overflow: auto;
+  background-color: #1e1e1e;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+/* Loading indicator */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #333;
+  border-top-color: #0e639c;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Token List */
+.token-list {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.875rem;
+}
+
+.token-item {
+  display: flex;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #333;
+}
+
+.token-item:last-child {
+  border-bottom: none;
+}
+
+.token-type {
+  width: 100px;
+  color: #569cd6;
+  font-weight: 500;
+}
+
+.token-lexeme {
+  flex: 1;
+  color: #ce9178;
+}
+
+.token-position {
+  color: #6a9955;
+  font-size: 0.75rem;
+}
+
+/* AST Viewer */
+.ast-viewer {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.875rem;
+}
+
+.ast-node {
+  margin-left: 1rem;
+  padding: 0.25rem 0;
+}
+
+.ast-node-kind {
+  color: #4ec9b0;
+  font-weight: 500;
+}
+
+.ast-node-value {
+  color: #dcdcaa;
+  margin-left: 0.5rem;
+}
+
+.ast-node-type {
+  color: #569cd6;
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* Symbol Table */
+.symbol-table {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.875rem;
+}
+
+.symbol-table-header {
+  display: flex;
+  padding: 0.5rem;
+  background-color: #2d2d2d;
+  border-bottom: 1px solid #444;
+  font-weight: 500;
+  color: #ccc;
+}
+
+.symbol-entry {
+  display: flex;
+  padding: 0.5rem;
+  border-bottom: 1px solid #333;
+}
+
+.symbol-entry:last-child {
+  border-bottom: none;
+}
+
+.symbol-name {
+  flex: 1;
+  color: #9cdcfe;
+}
+
+.symbol-type {
+  width: 80px;
+  color: #4ec9b0;
+}
+
+.symbol-position {
+  color: #6a9955;
+  font-size: 0.75rem;
+}
+
+/* Error List */
+.error-list {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.875rem;
+}
+
+.error-item {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #f44336;
+  border-radius: 4px;
+  color: #f44336;
+}
+
+.error-item:last-child {
+  margin-bottom: 0;
+}
+
+.error-phase {
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.error-position {
+  font-size: 0.75rem;
+  color: #ff8a80;
+  margin-bottom: 0.25rem;
+}
+
+.error-message {
+  color: #ffcdd2;
+}
+
+/* Empty state / placeholder */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #666;
+  font-style: italic;
+}

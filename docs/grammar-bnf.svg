@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .border { fill: none; stroke: #003366; stroke-width: 2; }
+      .header-bg { fill: #003366; }
+      .header-text { fill: white; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 18px; font-weight: bold; }
+      .rule-name { fill: #003366; font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: bold; }
+      .arrow { fill: #006699; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 14px; }
+      .terminal { fill: #8b0000; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; }
+      .nonterminal { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; font-style: italic; }
+      .operator { fill: #2d5016; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; }
+      .comment { fill: #666666; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 11px; font-style: italic; }
+      .row-even { fill: #e6f2ff; }
+      .row-odd { fill: #ffffff; }
+      .divider { stroke: #ccd9e6; stroke-width: 1; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" width="700" height="520" rx="8"/>
+  <rect class="border" x="1" y="1" width="698" height="518" rx="8"/>
+  
+  <!-- Header -->
+  <rect class="header-bg" x="1" y="1" width="698" height="40" rx="8"/>
+  <rect class="header-bg" x="1" y="30" width="698" height="12"/>
+  <text class="header-text" x="350" y="28" text-anchor="middle">BNF Grammar Specification</text>
+  
+  <!-- Row backgrounds -->
+  <rect class="row-odd" x="2" y="42" width="696" height="48"/>
+  <rect class="row-even" x="2" y="90" width="696" height="48"/>
+  <rect class="row-odd" x="2" y="138" width="696" height="48"/>
+  <rect class="row-even" x="2" y="186" width="696" height="48"/>
+  <rect class="row-odd" x="2" y="234" width="696" height="48"/>
+  <rect class="row-even" x="2" y="282" width="696" height="48"/>
+  <rect class="row-odd" x="2" y="330" width="696" height="48"/>
+  <rect class="row-even" x="2" y="378" width="696" height="64"/>
+  <rect class="row-odd" x="2" y="442" width="696" height="75"/>
+  
+  <!-- Divider lines -->
+  <line class="divider" x1="2" y1="90" x2="698" y2="90"/>
+  <line class="divider" x1="2" y1="138" x2="698" y2="138"/>
+  <line class="divider" x1="2" y1="186" x2="698" y2="186"/>
+  <line class="divider" x1="2" y1="234" x2="698" y2="234"/>
+  <line class="divider" x1="2" y1="282" x2="698" y2="282"/>
+  <line class="divider" x1="2" y1="330" x2="698" y2="330"/>
+  <line class="divider" x1="2" y1="378" x2="698" y2="378"/>
+  <line class="divider" x1="2" y1="442" x2="698" y2="442"/>
+  
+  <!-- Grammar Rules -->
+  
+  <!-- program -->
+  <text class="rule-name" x="20" y="70">program</text>
+  <text class="arrow" x="140" y="70">→</text>
+  <text class="nonterminal" x="165" y="70">statement</text>
+  <text class="operator" x="250" y="70">*</text>
+  <text class="comment" x="500" y="70">(zero or more)</text>
+  
+  <!-- statement -->
+  <text class="rule-name" x="20" y="110">statement</text>
+  <text class="arrow" x="140" y="110">→</text>
+  <text class="nonterminal" x="165" y="110">assignment</text>
+  <text class="operator" x="260" y="110">|</text>
+  <text class="nonterminal" x="280" y="110">expression</text>
+  
+  <!-- assignment -->
+  <text class="rule-name" x="20" y="166">assignment</text>
+  <text class="arrow" x="140" y="166">→</text>
+  <text class="terminal" x="165" y="166">IDENTIFIER</text>
+  <text class="terminal" x="275" y="166">"="</text>
+  <text class="nonterminal" x="310" y="166">expression</text>
+  
+  <!-- expression -->
+  <text class="rule-name" x="20" y="214">expression</text>
+  <text class="arrow" x="140" y="214">→</text>
+  <text class="nonterminal" x="165" y="214">additive</text>
+  
+  <!-- additive -->
+  <text class="rule-name" x="20" y="262">additive</text>
+  <text class="arrow" x="140" y="262">→</text>
+  <text class="nonterminal" x="165" y="262">multiplicative</text>
+  <text class="operator" x="290" y="262">(</text>
+  <text class="operator" x="300" y="262">(</text>
+  <text class="terminal" x="315" y="262">"+"</text>
+  <text class="operator" x="350" y="262">|</text>
+  <text class="terminal" x="365" y="262">"-"</text>
+  <text class="operator" x="395" y="262">)</text>
+  <text class="nonterminal" x="410" y="262">multiplicative</text>
+  <text class="operator" x="535" y="262">)*</text>
+  
+  <!-- multiplicative -->
+  <text class="rule-name" x="20" y="310">multiplicative</text>
+  <text class="arrow" x="140" y="310">→</text>
+  <text class="nonterminal" x="165" y="310">power</text>
+  <text class="operator" x="220" y="310">(</text>
+  <text class="operator" x="230" y="310">(</text>
+  <text class="terminal" x="245" y="310">"*"</text>
+  <text class="operator" x="280" y="310">|</text>
+  <text class="terminal" x="295" y="310">"/"</text>
+  <text class="operator" x="325" y="310">)</text>
+  <text class="nonterminal" x="340" y="310">power</text>
+  <text class="operator" x="395" y="310">)*</text>
+  
+  <!-- power -->
+  <text class="rule-name" x="20" y="358">power</text>
+  <text class="arrow" x="140" y="358">→</text>
+  <text class="nonterminal" x="165" y="358">unary</text>
+  <text class="operator" x="215" y="358">(</text>
+  <text class="terminal" x="230" y="358">"^"</text>
+  <text class="nonterminal" x="265" y="358">power</text>
+  <text class="operator" x="320" y="358">)?</text>
+  <text class="comment" x="500" y="358">(right-associative)</text>
+  
+  <!-- unary -->
+  <text class="rule-name" x="20" y="400">unary</text>
+  <text class="arrow" x="140" y="400">→</text>
+  <text class="operator" x="165" y="400">(</text>
+  <text class="terminal" x="180" y="400">"-"</text>
+  <text class="operator" x="210" y="400">|</text>
+  <text class="terminal" x="225" y="400">"+"</text>
+  <text class="operator" x="255" y="400">)</text>
+  <text class="nonterminal" x="270" y="400">unary</text>
+  <text class="operator" x="165" y="425">|</text>
+  <text class="nonterminal" x="180" y="425">primary</text>
+  
+  <!-- primary -->
+  <text class="rule-name" x="20" y="465">primary</text>
+  <text class="arrow" x="140" y="465">→</text>
+  <text class="terminal" x="165" y="465">INTEGER</text>
+  <text class="operator" x="250" y="465">|</text>
+  <text class="terminal" x="265" y="465">FLOAT</text>
+  <text class="operator" x="320" y="465">|</text>
+  <text class="terminal" x="335" y="465">IDENTIFIER</text>
+  <text class="operator" x="165" y="490">|</text>
+  <text class="terminal" x="180" y="490">"("</text>
+  <text class="nonterminal" x="210" y="490">expression</text>
+  <text class="terminal" x="300" y="490">")"</text>
+  
+</svg>

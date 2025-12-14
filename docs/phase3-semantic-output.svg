@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .border { fill: none; stroke: #003366; stroke-width: 2; }
+      .header-bg { fill: #003366; }
+      .header-text { fill: white; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 14px; font-weight: bold; }
+      .subheader-bg { fill: #006699; }
+      .subheader-text { fill: white; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 12px; font-weight: bold; }
+      .node-name { fill: #003366; font-family: 'DejaVu Sans Mono', monospace; font-size: 12px; font-weight: bold; }
+      .node-value { fill: #8b0000; font-family: 'DejaVu Sans Mono', monospace; font-size: 12px; }
+      .type-label { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 11px; font-style: italic; }
+      .connector { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 12px; }
+      .section-bg-1 { fill: #e6f2ff; }
+      .section-bg-2 { fill: #ffffff; }
+      .divider { stroke: #ccd9e6; stroke-width: 1; }
+      .table-header { fill: #003366; }
+      .table-header-text { fill: white; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 11px; font-weight: bold; }
+      .table-cell { fill: #003366; font-family: 'DejaVu Sans Mono', monospace; font-size: 11px; }
+      .table-row-odd { fill: #e6f2ff; }
+      .table-row-even { fill: #ffffff; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" width="600" height="280" rx="8"/>
+  <rect class="border" x="1" y="1" width="598" height="278" rx="8"/>
+  
+  <!-- Main Header -->
+  <rect class="header-bg" x="1" y="1" width="598" height="32" rx="8"/>
+  <rect class="header-bg" x="1" y="22" width="598" height="12"/>
+  <text class="header-text" x="300" y="22" text-anchor="middle">Phase 3 — Semantic Output</text>
+  
+  <!-- Left side: Annotated AST -->
+  <rect class="subheader-bg" x="10" y="42" width="280" height="24" rx="4"/>
+  <text class="subheader-text" x="150" y="58" text-anchor="middle">Annotated AST</text>
+  
+  <rect class="section-bg-1" x="10" y="66" width="280" height="200" rx="4"/>
+  
+  <!-- Assignment x -->
+  <text class="node-name" x="20" y="90">Assignment</text>
+  <text class="node-value" x="100" y="90">(x,</text>
+  <text class="node-name" x="125" y="90">Literal</text>
+  <text class="node-value" x="175" y="90">(10,</text>
+  <text class="type-label" x="20" y="108">resolvedType: Integer))</text>
+  
+  <!-- Assignment y -->
+  <text class="node-name" x="20" y="138">Assignment</text>
+  <text class="node-value" x="100" y="138">(y,</text>
+  <text class="node-name" x="125" y="138">BinaryExpr</text>
+  <text class="node-value" x="205" y="138">(+,</text>
+  <text class="type-label" x="30" y="156">resolvedType: Float,</text>
+  
+  <!-- BinaryExpr children -->
+  <text class="connector" x="30" y="178">├─</text>
+  <text class="node-name" x="55" y="178">Variable</text>
+  <text class="node-value" x="120" y="178">(x,</text>
+  <text class="type-label" x="145" y="178">resolvedType: Integer),</text>
+  
+  <text class="connector" x="30" y="198">└─</text>
+  <text class="node-name" x="55" y="198">Literal</text>
+  <text class="node-value" x="110" y="198">(2.5,</text>
+  <text class="type-label" x="150" y="198">resolvedType: Float)))</text>
+  
+  <!-- Right side: Symbol Table -->
+  <rect class="subheader-bg" x="310" y="42" width="280" height="24" rx="4"/>
+  <text class="subheader-text" x="450" y="58" text-anchor="middle">Symbol Table</text>
+  
+  <!-- Table -->
+  <rect class="table-header" x="310" y="66" width="280" height="28" rx="4"/>
+  <rect class="table-header" x="310" y="82" width="280" height="12"/>
+  <text class="table-header-text" x="360" y="84" text-anchor="middle">Variable</text>
+  <text class="table-header-text" x="450" y="84" text-anchor="middle">Type</text>
+  <text class="table-header-text" x="540" y="84" text-anchor="middle">Defined At</text>
+  
+  <!-- Table rows -->
+  <rect class="table-row-odd" x="310" y="94" width="280" height="28"/>
+  <text class="table-cell" x="360" y="112" text-anchor="middle">x</text>
+  <text class="table-cell" x="450" y="112" text-anchor="middle">Integer</text>
+  <text class="table-cell" x="540" y="112" text-anchor="middle">line 1, col 1</text>
+  
+  <rect class="table-row-even" x="310" y="122" width="280" height="28"/>
+  <text class="table-cell" x="360" y="140" text-anchor="middle">y</text>
+  <text class="table-cell" x="450" y="140" text-anchor="middle">Float</text>
+  <text class="table-cell" x="540" y="140" text-anchor="middle">line 2, col 1</text>
+  
+  <!-- Border for table -->
+  <rect fill="none" stroke="#003366" stroke-width="1" x="310" y="66" width="280" height="84" rx="4"/>
+  
+  <!-- Divider lines in table -->
+  <line stroke="#ccd9e6" x1="400" y1="66" x2="400" y2="150"/>
+  <line stroke="#ccd9e6" x1="500" y1="66" x2="500" y2="150"/>
+  
+  <!-- Type promotion note -->
+  <rect fill="#fff3cd" x="310" y="170" width="280" height="50" rx="4"/>
+  <rect fill="none" stroke="#ffc107" stroke-width="1" x="310" y="170" width="280" height="50" rx="4"/>
+  <text fill="#856404" font-family="DejaVu Sans" font-size="11px" font-weight="bold" x="320" y="188">Type Promotion Applied:</text>
+  <text fill="#856404" font-family="DejaVu Sans Mono" font-size="11px" x="320" y="206">x (Integer) + 2.5 (Float) → Float</text>
+  
+</svg>

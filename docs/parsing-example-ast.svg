@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .border { fill: none; stroke: #003366; stroke-width: 2; }
+      .header-bg { fill: #003366; }
+      .header-text { fill: white; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 16px; font-weight: bold; }
+      .node-name { fill: #003366; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; font-weight: bold; }
+      .node-value { fill: #8b0000; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; }
+      .type-label { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 12px; font-style: italic; }
+      .connector { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; }
+      .section-bg { fill: #e6f2ff; }
+      .note-text { fill: #666666; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 11px; font-style: italic; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" width="500" height="280" rx="8"/>
+  <rect class="border" x="1" y="1" width="498" height="278" rx="8"/>
+  
+  <!-- Header -->
+  <rect class="header-bg" x="1" y="1" width="498" height="36" rx="8"/>
+  <rect class="header-bg" x="1" y="26" width="498" height="12"/>
+  <text class="header-text" x="250" y="25" text-anchor="middle">AST for: 2 + 3 * 4</text>
+  
+  <!-- Section background -->
+  <rect class="section-bg" x="2" y="38" width="496" height="238"/>
+  
+  <!-- Root: BinaryExpr (+) -->
+  <text class="node-name" x="20" y="70">BinaryExpr</text>
+  <text class="node-value" x="110" y="70">(+)</text>
+  <text class="type-label" x="145" y="70">resolvedType: Integer</text>
+  
+  <!-- Left child: Literal(2) -->
+  <text class="connector" x="20" y="105">|--</text>
+  <text class="node-name" x="55" y="105">Literal</text>
+  <text class="node-value" x="115" y="105">(2)</text>
+  <text class="type-label" x="145" y="105">dataType: Integer</text>
+  
+  <!-- Right child: BinaryExpr (*) -->
+  <text class="connector" x="20" y="145">+--</text>
+  <text class="node-name" x="55" y="145">BinaryExpr</text>
+  <text class="node-value" x="145" y="145">(*)</text>
+  <text class="type-label" x="180" y="145">resolvedType: Integer</text>
+  
+  <!-- Grandchildren of BinaryExpr (*) -->
+  <text class="connector" x="55" y="185">|--</text>
+  <text class="node-name" x="90" y="185">Literal</text>
+  <text class="node-value" x="150" y="185">(3)</text>
+  <text class="type-label" x="180" y="185">dataType: Integer</text>
+  
+  <text class="connector" x="55" y="220">+--</text>
+  <text class="node-name" x="90" y="220">Literal</text>
+  <text class="node-value" x="150" y="220">(4)</text>
+  <text class="type-label" x="180" y="220">dataType: Integer</text>
+  
+  <!-- Note about precedence -->
+  <text class="note-text" x="20" y="258">* binds tighter than +, so 3 * 4 is evaluated first</text>
+  
+</svg>

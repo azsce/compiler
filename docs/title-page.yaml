@@ -1,0 +1,103 @@
+---
+title: "Mini Math Compiler"
+subtitle: "Analysis Phases Report - SCE 410 / Compilers"
+author:
+  - "Mostafa Khaled Mohamed Hassanin (73)"
+  - "Mohamed Ramadan Saeed Mahmoud (56)"
+  - "Ahmed Hosny Abdel Hameed (7)"
+  - "Mahmoud Mohamed Ahmed Hussein (70)"
+  - "Mohamed Shaaban Abdel Maqsoud El-Shenawy (57)"
+date: "December 2025"
+institute: "Al Azhar University - Systems and Computer Engineering"
+supervisor: "DR Ahmed Abd Al Aziz"
+toc: true
+toc-depth: 2
+numbersections: true
+geometry: "left=0.5in, right=0.5in, top=1in, bottom=1in"
+fontsize: 12pt
+documentclass: article
+colorlinks: true
+linkcolor: blue
+urlcolor: blue
+toccolor: blue
+highlight-style: tango
+mainfont: "DejaVu Sans"
+sansfont: "DejaVu Sans"
+monofont: "Noto Sans Mono"
+linestretch: 1.4
+header-includes:
+  - |
+    ```{=latex}
+    \usepackage{xcolor}
+    \usepackage{colortbl}
+    \usepackage{etoolbox}
+    \usepackage{setspace}
+    \usepackage{titlesec}
+    \usepackage{fvextra}
+    \usepackage{float}
+    \usepackage{graphicx}
+    % Code block settings - break long lines
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+    % Force figures to stay in place (not float to separate pages)
+    \floatplacement{figure}{H}
+    \let\origfigure\figure
+    \let\endorigfigure\endfigure
+    \renewenvironment{figure}[1][H]{\origfigure[H]}{\endorigfigure}
+    % Colors
+    \definecolor{darkblue}{RGB}{0, 51, 102}
+    \definecolor{mediumblue}{RGB}{0, 102, 153}
+    \definecolor{lightblue}{RGB}{51, 153, 204}
+    \definecolor{boldcolor}{RGB}{139, 0, 0}
+    \definecolor{inlinecode}{RGB}{0, 100, 0}
+    \definecolor{tableheader}{RGB}{0, 51, 102}
+    \definecolor{tablerowodd}{RGB}{230, 242, 255}
+    \definecolor{tableroweven}{RGB}{255, 255, 255}
+    % Section colors using titlesec - sections start on new page
+    \newcommand{\sectionbreak}{\clearpage}
+    \titleformat{\section}{\clearpage\normalfont\Large\bfseries\color{darkblue}}{\thesection}{1em}{}
+    \titleformat{\subsection}{\normalfont\large\bfseries\color{mediumblue}}{\thesubsection}{1em}{}
+    \titleformat{\subsubsection}{\normalfont\normalsize\bfseries\color{lightblue}}{\thesubsubsection}{1em}{}
+    % Section spacing (all divisible by 2)
+    \titlespacing*{\section}{0pt}{24pt}{12pt}
+    \titlespacing*{\subsection}{0pt}{16pt}{8pt}
+    \titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
+    % Make bold text colored (dark red)
+    \let\oldtextbf\textbf
+    \renewcommand{\textbf}[1]{\oldtextbf{\color{boldcolor}#1}}
+    % Make emphasis (italic) colored
+    \let\oldemph\emph
+    \renewcommand{\emph}[1]{\oldemph{\color{mediumblue}#1}}
+    % Spacing divisible by 2 (in points)
+    \setlength{\parskip}{8pt}
+    \setlength{\parindent}{0pt}
+    \setlength{\baselineskip}{16pt}
+    % Table styling with alternating row colors and colored header
+    \makeatletter
+    \AtBeginEnvironment{longtable}{%
+      \rowcolors{2}{tablerowodd}{tableroweven}%
+    }
+    \makeatother
+    % Style the toprule (header separator) with color
+    \let\oldtoprule\toprule
+    \renewcommand{\toprule}{\arrayrulecolor{tableheader}\oldtoprule\arrayrulecolor{black}}
+    \let\oldmidrule\midrule
+    \renewcommand{\midrule}{\arrayrulecolor{mediumblue}\oldmidrule\arrayrulecolor{black}}
+    \let\oldbottomrule\bottomrule
+    \renewcommand{\bottomrule}{\arrayrulecolor{tableheader}\oldbottomrule\arrayrulecolor{black}}
+    % Table row height (divisible by 2)
+    \renewcommand{\arraystretch}{1.4}
+    % Header/Footer
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhead[L]{\color{darkblue}\leftmark}
+    \fancyhead[R]{\color{darkblue}\thepage}
+    \fancyfoot[C]{\color{gray}\small Mini Math Compiler - SCE 410}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\headrule}{\hbox to\headwidth{\color{darkblue}\leaders\hrule height \headrulewidth\hfill}}
+    ```
+include-before:
+  - |
+    ```{=latex}
+    \newpage
+    ```
+---
