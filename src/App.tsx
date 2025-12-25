@@ -6,8 +6,8 @@ import { createCompilerWorker, type CompilerWorkerManager } from './workers/useC
 import { EditorPanel } from './components/EditorPanel';
 import { OutputPanel } from './components/OutputPanel';
 
-const DEFAULT_CODE = `// Mini Math Compiler
-// Try some expressions:
+const DEFAULT_CODE = `# Mini Math Compiler
+# Try some expressions:
 x = 42
 y = 3.14
 result = x + y * 2

@@ -214,8 +214,8 @@ describe('Lexer Position Tracking Property Tests', () => {
    * ERROR tokens should also have valid positions.
    */
   test('Property 5: Position Tracking Completeness - error tokens have valid positions', () => {
-    // Generate strings with invalid characters
-    const invalidCharArb = fc.constantFrom('@', '#', '$', '&', '!', '?', '`', '~');
+    // Generate strings with invalid characters (# is now a comment marker, not invalid)
+    const invalidCharArb = fc.constantFrom('@', '$', '&', '!', '?', '`', '~');
     const sourceWithInvalidArb = fc
       .tuple(whitespaceArb, invalidCharArb, whitespaceArb)
       .map(([ws1, invalid, ws2]) => ws1 + invalid + ws2);

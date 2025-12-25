@@ -61,6 +61,10 @@ class Lexer {
       case '/':
         this.addToken('SLASH');
         break;
+      case '#':
+        // Single-line comment: skip everything until end of line
+        this.skipComment();
+        break;
       case '^':
         this.addToken('CARET');
         break;
@@ -134,6 +138,17 @@ class Lexer {
     }
 
     this.addToken('IDENTIFIER');
+  }
+
+  /**
+   * Skip a comment (everything from # to end of line)
+   */
+  private skipComment(): void {
+    // Consume all characters until newline or end of file
+    while (this.peek() !== '\n' && !this.isAtEnd()) {
+      this.advance();
+    }
+    // The newline itself will be handled by the next scanToken call
   }
 
   /**
