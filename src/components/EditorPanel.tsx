@@ -4,19 +4,22 @@ import { EditorView, keymap, lineNumbers, highlightActiveLine, highlightActiveLi
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 import { tags } from '@lezer/highlight';
+import { miniMath } from '../compiler/minimath-lang';
 
 export interface EditorPanelProps {
   value: string;
   onChange: (value: string) => void;
 }
 
-// Custom syntax highlighting for our mini math language
+// Enhanced syntax highlighting for our mini math language
 const mathHighlightStyle = HighlightStyle.define([
   { tag: tags.number, color: '#b5cea8' },
   { tag: tags.variableName, color: '#9cdcfe' },
+  { tag: tags.definition(tags.variableName), color: '#4fc1ff', fontWeight: 'bold' },
   { tag: tags.operator, color: '#d4d4d4' },
+  { tag: tags.definitionOperator, color: '#d4d4d4' },
   { tag: tags.paren, color: '#ffd700' },
-  { tag: tags.comment, color: '#6a9955', fontStyle: 'italic' },
+  { tag: tags.invalid, color: '#f44747', textDecoration: 'wavy underline #f44747' },
 ]);
 
 // Dark theme for the editor
@@ -75,6 +78,7 @@ export function EditorPanel({ value, onChange }: EditorPanelProps) {
     const state = EditorState.create({
       doc: value,
       extensions: [
+        miniMath(),
         lineNumbers(),
         highlightActiveLine(),
         highlightActiveLineGutter(),

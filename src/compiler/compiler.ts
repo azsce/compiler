@@ -53,15 +53,18 @@ export function compile(source: string): CompilationResult {
     ast = parseResult.ast;
 
     // Phase 3: Semantic Analysis
-    // Only proceed if we have a valid AST
-    const semanticResult = analyze(ast);
-    
-    if (semanticResult.errors.length > 0) {
-      errors.push(...semanticResult.errors);
-    }
+    // Only proceed if we have a valid AST with NO syntax errors
+    // Running semantic analysis on a partial/invalid AST can produce misleading errors
+    if (parseResult.errors.length === 0) {
+      const semanticResult = analyze(ast);
+      
+      if (semanticResult.errors.length > 0) {
+        errors.push(...semanticResult.errors);
+      }
 
-    symbolTable = semanticResult.symbolTable;
-    annotatedAst = semanticResult.annotatedAst;
+      symbolTable = semanticResult.symbolTable;
+      annotatedAst = semanticResult.annotatedAst;
+    }
   }
 
   return {

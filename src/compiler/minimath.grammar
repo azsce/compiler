@@ -1,0 +1,68 @@
+@top Program { statement* }
+
+statement {
+  Assignment |
+  Expression
+}
+
+Assignment {
+  Identifier "=" Expression
+}
+
+Expression {
+  UnaryExpression |
+  BinaryExpression |
+  PrimaryExpression
+}
+
+BinaryExpression {
+  Expression !power "^" Expression |
+  Expression !times ("*" | "/") Expression |
+  Expression !plus ("+" | "-") Expression
+}
+
+UnaryExpression {
+  ("+" | "-") Expression
+}
+
+PrimaryExpression {
+  Number |
+  Identifier |
+  ParenthesizedExpression
+}
+
+ParenthesizedExpression {
+  "(" Expression ")"
+}
+
+@tokens {
+  // Numbers - integers and floats
+  Number {
+    @digit+ ("." @digit+)?
+  }
+
+  // Identifiers - variable names
+  Identifier {
+    @asciiLetter (@asciiLetter | @digit | "_")*
+  }
+
+  // Whitespace
+  space { @whitespace+ }
+
+  // Operators - order matters for conflict resolution
+  "^" "+" "-" "*" "/"
+  
+  // Delimiters
+  "(" ")" "="
+}
+
+@skip { space }
+
+// Precedence declarations (higher number = higher precedence)
+@precedence {
+  power @right,
+  times @left,
+  plus @left
+}
+
+@external propSource highlight from "./minimath-highlight"
