@@ -67,6 +67,54 @@ function evaluate(node: ASTNode, variables: Map<string, number> = new Map()): nu
 const smallIntArb = fc.integer({ min: 1, max: 10 });
 
 // ===========================================================================
+// Unit Tests for Error Cases
+// ===========================================================================
+
+describe('Parser Error Detection', () => {
+  /**
+   * Test: Reject expressions with adjacent identifiers without operator
+   * "x + y w * 2" should produce a syntax error because 'y' and 'w' 
+   * are adjacent without an operator between them
+   */
+  test('rejects adjacent identifiers in expression', () => {
+    const source = 'result = x + y w * 2';
+    const tokens = tokenize(source);
+    const { errors } = parse(tokens);
+
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].phase).toBe('syntax');
+    expect(errors[0].message).toContain('Unexpected token');
+  });
+
+  /**
+   * Test: Reject expression followed by identifier without operator
+   * "x + y z" should produce a syntax error
+   */
+  test('rejects expression followed by unexpected identifier', () => {
+    const source = 'x + y z';
+    const tokens = tokenize(source);
+    const { errors } = parse(tokens);
+
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].phase).toBe('syntax');
+  });
+
+  /**
+   * Test: Accept valid expressions with proper operators
+   * "x + y * 2" should parse successfully
+   */
+  test('accepts valid expression with proper operators', () => {
+    const source = 'result = x + y * 2';
+    const tokens = tokenize(source);
+    const { ast, errors } = parse(tokens);
+
+    expect(errors).toHaveLength(0);
+    expect(ast).toHaveLength(1);
+    expect(ast[0].kind).toBe('Assignment');
+  });
+});
+
+// ===========================================================================
 // Property Tests
 // ===========================================================================
 

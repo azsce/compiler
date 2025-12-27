@@ -167,7 +167,27 @@ class Parser {
       return this.parseAssignment();
     }
 
-    return this.parseExpression();
+    const expr = this.parseExpression();
+    
+    // After parsing an expression statement, validate no unexpected tokens follow
+    if (!this.isAtEnd()) {
+      const nextToken = this.peek();
+      // Only valid next tokens are EOF or start of a new assignment
+      const isNewStatement = 
+        nextToken.type === 'IDENTIFIER' && this.lookAhead(1)?.type === 'EQUALS';
+      
+      if (!isNewStatement) {
+        this.addError(
+          `Unexpected token '${nextToken.lexeme}' after expression`,
+          nextToken.position,
+          'end of statement or new statement',
+          nextToken.type
+        );
+        throw new Error('Unexpected token after expression');
+      }
+    }
+    
+    return expr;
   }
 
   /**
@@ -190,6 +210,24 @@ class Parser {
     this.advance(); // consume EQUALS
 
     const value = this.parseExpression();
+
+    // After parsing the assignment value, validate no unexpected tokens follow
+    if (!this.isAtEnd()) {
+      const nextToken = this.peek();
+      // Only valid next tokens are EOF or start of a new assignment
+      const isNewStatement = 
+        nextToken.type === 'IDENTIFIER' && this.lookAhead(1)?.type === 'EQUALS';
+      
+      if (!isNewStatement) {
+        this.addError(
+          `Unexpected token '${nextToken.lexeme}' after expression`,
+          nextToken.position,
+          'end of statement or new statement',
+          nextToken.type
+        );
+        throw new Error('Unexpected token after expression');
+      }
+    }
 
     return {
       kind: 'Assignment',
