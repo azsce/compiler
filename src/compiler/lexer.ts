@@ -31,7 +31,7 @@ class Lexer {
       this.scanToken();
     }
 
-    // Append EOF token at end (Requirement 3.6)
+    // Append EOF token at end
     this.tokens.push({
       type: 'EOF',
       lexeme: '',
@@ -48,7 +48,7 @@ class Lexer {
     const c = this.advance();
 
     switch (c) {
-      // Single-character operators (Requirement 3.1)
+      // Single-character operators
       case '+':
         this.addToken('PLUS');
         break;
@@ -78,7 +78,7 @@ class Lexer {
         this.addToken('EQUALS');
         break;
 
-      // Whitespace handling (Requirement 3.3)
+      // Whitespace handling
       case ' ':
       case '\r':
       case '\t':
@@ -95,7 +95,7 @@ class Lexer {
         } else if (this.isAlpha(c)) {
           this.identifier();
         } else {
-          // Error handling for unexpected characters (Requirement 3.4)
+          // Error handling for unexpected characters
           this.addErrorToken(`Unexpected character '${c}'`);
         }
         break;
