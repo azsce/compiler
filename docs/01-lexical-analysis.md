@@ -26,6 +26,113 @@ The Mini Math Compiler's lexer performs **character-by-character scanning** with
 6. **Append** an EOF token to mark the end
 
 
+## Lexer Algorithm (Pseudocode)
+
+The following pseudocode illustrates the main tokenization algorithm:
+
+```python
+function tokenize(source):
+  tokens = []
+  current = 0
+  line = 1
+  column = 1
+  
+  while current < length(source):
+    start = current
+    startColumn = column
+    char = source[current]
+    
+    # Single-character tokens
+    if char is '+', '-', '*', '/', '^', '(', ')', '=':
+      tokens.add(Token(type=charToTokenType(char), 
+                       lexeme=char, 
+                       position=(line, startColumn)))
+      current++
+      column++
+    
+    # Skip whitespace
+    else if char is ' ', '\t', '\r':
+      current++
+      column++
+    
+    # Handle newlines
+    else if char is '\n':
+      line++
+      column = 1
+      current++
+    
+    # Scan numbers
+    else if isDigit(char):
+      (token, newCurrent) = scanNumber(source, current, line, startColumn)
+      tokens.add(token)
+      current = newCurrent
+      column += (newCurrent - start)
+    
+    # Scan identifiers
+    else if isAlpha(char):
+      (token, newCurrent) = scanIdentifier(source, current, line, startColumn)
+      tokens.add(token)
+      current = newCurrent
+      column += (newCurrent - start)
+    
+    # Unexpected character
+    else:
+      tokens.add(Token(type=ERROR, 
+                       lexeme=char, 
+                       position=(line, startColumn)))
+      current++
+      column++
+  
+  # Add EOF token
+  tokens.add(Token(type=EOF, lexeme="", position=(line, column)))
+  return tokens
+
+
+function scanNumber(source, start, line, column):
+  current = start
+  isFloat = false
+  
+  # Scan integer part
+  while current < length(source) and isDigit(source[current]):
+    current++
+  
+  # Check for decimal point
+  if source[current] is '.' and isDigit(source[current+1]):
+    isFloat = true
+    current++  # consume '.'
+    
+    # Scan fractional part
+    while current < length(source) and isDigit(source[current]):
+      current++
+  
+  lexeme = source[start:current]
+  value = parseFloat(lexeme)
+  tokenType = FLOAT if isFloat else INTEGER
+  
+  token = Token(type=tokenType, 
+                lexeme=lexeme, 
+                literal=value,
+                position=(line, column))
+  
+  return (token, current)
+
+
+function scanIdentifier(source, start, line, column):
+  current = start
+  
+  # Scan alphanumeric characters
+  while current < length(source) and isAlphaNumeric(source[current]):
+    current++
+  
+  lexeme = source[start:current]
+  token = Token(type=IDENTIFIER, 
+                lexeme=lexeme,
+                position=(line, column))
+  
+  return (token, current)
+```
+
+
 ## Token Structure
 
 Each token produced by the lexer contains the following information:

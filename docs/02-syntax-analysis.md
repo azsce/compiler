@@ -34,6 +34,131 @@ The Mini Math Compiler's expression language is defined by the following grammar
 - UPPERCASE names are terminal tokens from the lexer
 
 
+## Parser Algorithm (Pseudocode)
+
+The following pseudocode illustrates the recursive descent parser with precedence climbing:
+
+```python
+function parse(tokens):
+  current = 0
+  statements = []
+  errors = []
+  
+  while tokens[current].type != EOF:
+    try:
+      statement = parseStatement()
+      statements.add(statement)
+    catch error:
+      errors.add(error)
+      break
+  
+  return (statements, errors)
+
+
+function parseStatement():
+  # Check for assignment: IDENTIFIER = expression
+  if tokens[current].type is IDENTIFIER and tokens[current+1].type is EQUALS:
+    return parseAssignment()
+  else:
+    return parseExpression()
+
+
+function parseAssignment():
+  nameToken = advance()  # consume IDENTIFIER
+  advance()              # consume EQUALS
+  value = parseExpression()
+  
+  return AssignmentNode(name=nameToken.lexeme, 
+                        value=value,
+                        position=nameToken.position)
+
+
+# Expression parsing with precedence climbing
+function parseExpression():
+  return parseAdditive()
+
+
+# Precedence Level 1: Addition and Subtraction (left-associative)
+function parseAdditive():
+  left = parseMultiplicative()
+  
+  while tokens[current].type is PLUS or MINUS:
+    operator = advance().lexeme
+    right = parseMultiplicative()
+    left = BinaryExprNode(operator, left, right)
+  
+  return left
+
+
+# Precedence Level 2: Multiplication and Division (left-associative)
+function parseMultiplicative():
+  left = parsePower()
+  
+  while tokens[current].type is STAR or SLASH:
+    operator = advance().lexeme
+    right = parsePower()
+    left = BinaryExprNode(operator, left, right)
+  
+  return left
+
+
+# Precedence Level 3: Exponentiation (right-associative)
+function parsePower():
+  left = parseUnary()
+  
+  if tokens[current].type is CARET:
+    operator = advance().lexeme
+    # Right-associative: recursively call parsePower
+    right = parsePower()
+    return BinaryExprNode(operator, left, right)
+  
+  return left
+
+
+# Precedence Level 4: Unary operators
+function parseUnary():
+  if tokens[current].type is MINUS or PLUS:
+    operator = advance().lexeme
+    operand = parseUnary()  # Allow chained unary operators
+    return UnaryExprNode(operator, operand)
+  
+  return parsePrimary()
+
+
+# Primary expressions (highest precedence)
+function parsePrimary():
+  # Integer literal
+  if tokens[current].type is INTEGER:
+    token = advance()
+    return LiteralNode(value=token.literal, dataType=Integer)
+  
+  # Float literal
+  if tokens[current].type is FLOAT:
+    token = advance()
+    return LiteralNode(value=token.literal, dataType=Float)
+  
+  # Variable reference
+  if tokens[current].type is IDENTIFIER:
+    token = advance()
+    return VariableNode(name=token.lexeme)
+  
+  # Parenthesized expression
+  if tokens[current].type is LPAREN:
+    advance()  # consume '('
+    expr = parseExpression()
+    expect(RPAREN)  # consume ')'
+    return expr
+  
+  error("Expected expression")
+
+
+function advance():
+  token = tokens[current]
+  current++
+  return token
+```
+
+
 ## Operator Precedence and Associativity
 
 Operators are parsed according to their precedence level. Higher precedence operators bind more tightly than lower precedence operators.
@@ -175,7 +300,7 @@ Example: `x` produces:
 ## Parsing Example
 
 **Input Expression:**
-```matlab
+```typescript
 2 + 3 * 4
 ```
 

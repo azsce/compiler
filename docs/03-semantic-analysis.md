@@ -13,6 +13,129 @@ The Mini Math Compiler's semantic analyzer performs three key tasks:
 The semantic analyzer traverses the AST produced by the parser, annotating each node with its resolved type and building the symbol table as it encounters assignments.
 
 
+## Semantic Analyzer Algorithm (Pseudocode)
+
+The following pseudocode illustrates the semantic analysis algorithm:
+
+```python
+function analyze(ast):
+  symbolTable = empty Map
+  annotatedAst = []
+  errors = []
+  
+  for each node in ast:
+    annotatedNode = analyzeNode(node, symbolTable, errors)
+    annotatedAst.add(annotatedNode)
+  
+  return (symbolTable, annotatedAst, errors)
+
+
+function analyzeNode(node, symbolTable, errors):
+  if node.kind is Assignment:
+    return analyzeAssignment(node, symbolTable, errors)
+  else if node.kind is BinaryExpr:
+    return analyzeBinaryExpr(node, symbolTable, errors)
+  else if node.kind is UnaryExpr:
+    return analyzeUnaryExpr(node, symbolTable, errors)
+  else if node.kind is Literal:
+    return analyzeLiteral(node)
+  else if node.kind is Variable:
+    return analyzeVariable(node, symbolTable, errors)
+
+
+function analyzeAssignment(node, symbolTable, errors):
+  # Analyze the value expression
+  annotatedValue = analyzeNode(node.value, symbolTable, errors)
+  valueType = getResolvedType(annotatedValue)
+  
+  # Add variable to symbol table
+  if valueType is not null:
+    symbolTable[node.name] = SymbolEntry(
+      name=node.name,
+      type=valueType,
+      definedAt=node.position
+    )
+  
+  return AssignmentNode(name=node.name, 
+                        value=annotatedValue,
+                        position=node.position)
+
+
+function analyzeBinaryExpr(node, symbolTable, errors):
+  # Analyze operands
+  annotatedLeft = analyzeNode(node.left, symbolTable, errors)
+  annotatedRight = analyzeNode(node.right, symbolTable, errors)
+  
+  leftType = getResolvedType(annotatedLeft)
+  rightType = getResolvedType(annotatedRight)
+  
+  # Type promotion rules
+  if leftType and rightType:
+    # Division always produces Float
+    if node.operator is '/':
+      resolvedType = Float
+    # If either operand is Float, result is Float
+    else if leftType is Float or rightType is Float:
+      resolvedType = Float
+    # Both are Integer
+    else:
+      resolvedType = Integer
+  else:
+    resolvedType = null
+  
+  return BinaryExprNode(operator=node.operator,
+                        left=annotatedLeft,
+                        right=annotatedRight,
+                        resolvedType=resolvedType,
+                        position=node.position)
+
+
+function analyzeUnaryExpr(node, symbolTable, errors):
+  # Analyze operand
+  annotatedOperand = analyzeNode(node.operand, symbolTable, errors)
+  operandType = getResolvedType(annotatedOperand)
+  
+  # Unary operator preserves type
+  return UnaryExprNode(operator=node.operator,
+                       operand=annotatedOperand,
+                       resolvedType=operandType,
+                       position=node.position)
+
+
+function analyzeLiteral(node):
+  # Type is determined by dataType field from parser
+  return LiteralNode(value=node.value,
+                     dataType=node.dataType,
+                     resolvedType=node.dataType,
+                     position=node.position)
+
+
+function analyzeVariable(node, symbolTable, errors):
+  # Look up variable in symbol table
+  entry = symbolTable.get(node.name)
+  
+  if entry is null:
+    errors.add(Error(
+      phase=semantic,
+      message="Undefined variable '" + node.name + "'",
+      position=node.position,
+      variableName=node.name
+    ))
+    return VariableNode(name=node.name, position=node.position)
+  
+  return VariableNode(name=node.name,
+                      resolvedType=entry.type,
+                      position=node.position)
+
+
+function getResolvedType(node):
+  if node.kind is Assignment:
+    return getResolvedType(node.value)
+  else:
+    return node.resolvedType
+```
+
+
 ## Type System
 
 The Mini Math Compiler supports two data types:

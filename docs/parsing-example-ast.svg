@@ -1,60 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 750">
   <defs>
     <style>
-      .bg { fill: #f8fafc; }
-      .border { fill: none; stroke: #003366; stroke-width: 2; }
-      .header-bg { fill: #003366; }
-      .header-text { fill: white; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 16px; font-weight: bold; }
-      .node-name { fill: #003366; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; font-weight: bold; }
-      .node-value { fill: #8b0000; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; }
-      .type-label { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 12px; font-style: italic; }
-      .connector { fill: #006699; font-family: 'DejaVu Sans Mono', monospace; font-size: 13px; }
-      .section-bg { fill: #e6f2ff; }
-      .note-text { fill: #666666; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 11px; font-style: italic; }
+      .node-box { fill: #e6f2ff; stroke: #336699; stroke-width: 2; rx: 8; }
+      .node-title { fill: #003366; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 20px; font-weight: bold; text-anchor: middle; }
+      .node-prop { fill: #8b0000; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 16px; text-anchor: middle; }
+      .edge { stroke: #336699; stroke-width: 2; fill: none; }
+      .edge-label { fill: #666666; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 14px; font-style: italic; }
+      .title-text { fill: #003366; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 24px; font-weight: bold; text-anchor: middle; }
+      .caption { fill: #666666; font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 16px; font-style: italic; text-anchor: middle; }
     </style>
   </defs>
   
-  <!-- Background -->
-  <rect class="bg" width="500" height="280" rx="8"/>
-  <rect class="border" x="1" y="1" width="498" height="278" rx="8"/>
+  <!-- Title -->
+  <text class="title-text" x="550" y="40">AST for: 2 + 3 * 4</text>
   
-  <!-- Header -->
-  <rect class="header-bg" x="1" y="1" width="498" height="36" rx="8"/>
-  <rect class="header-bg" x="1" y="26" width="498" height="12"/>
-  <text class="header-text" x="250" y="25" text-anchor="middle">AST for: 2 + 3 * 4</text>
+  <!-- Root Node: BinaryExpr (+) -->
+  <rect class="node-box" x="400" y="80" width="300" height="80"/>
+  <text class="node-title" x="550" y="110">BinaryExpr</text>
+  <text class="node-prop" x="550" y="145">operator: +</text>
   
-  <!-- Section background -->
-  <rect class="section-bg" x="2" y="38" width="496" height="238"/>
+  <!-- Edge labels -->
+  <text class="edge-label" x="330" y="210">left</text>
+  <text class="edge-label" x="770" y="210">right</text>
   
-  <!-- Root: BinaryExpr (+) -->
-  <text class="node-name" x="20" y="70">BinaryExpr</text>
-  <text class="node-value" x="110" y="70">(+)</text>
-  <text class="type-label" x="145" y="70">resolvedType: Integer</text>
+  <!-- Edges from root -->
+  <path class="edge" d="M 450 160 L 350 250"/>
+  <path class="edge" d="M 650 160 L 850 250"/>
   
-  <!-- Left child: Literal(2) -->
-  <text class="connector" x="20" y="105">|--</text>
-  <text class="node-name" x="55" y="105">Literal</text>
-  <text class="node-value" x="115" y="105">(2)</text>
-  <text class="type-label" x="145" y="105">dataType: Integer</text>
+  <!-- Left child: Literal (2) -->
+  <rect class="node-box" x="150" y="260" width="400" height="80"/>
+  <text class="node-title" x="350" y="290">Literal</text>
+  <text class="node-prop" x="350" y="325">value: 2, type: Integer</text>
   
   <!-- Right child: BinaryExpr (*) -->
-  <text class="connector" x="20" y="145">+--</text>
-  <text class="node-name" x="55" y="145">BinaryExpr</text>
-  <text class="node-value" x="145" y="145">(*)</text>
-  <text class="type-label" x="180" y="145">resolvedType: Integer</text>
+  <rect class="node-box" x="700" y="260" width="300" height="80"/>
+  <text class="node-title" x="850" y="290">BinaryExpr</text>
+  <text class="node-prop" x="850" y="325">operator: *</text>
   
-  <!-- Grandchildren of BinaryExpr (*) -->
-  <text class="connector" x="55" y="185">|--</text>
-  <text class="node-name" x="90" y="185">Literal</text>
-  <text class="node-value" x="150" y="185">(3)</text>
-  <text class="type-label" x="180" y="185">dataType: Integer</text>
+  <!-- Edge labels for second level -->
+  <text class="edge-label" x="580" y="420">left</text>
+  <text class="edge-label" x="1020" y="420">right</text>
   
-  <text class="connector" x="55" y="220">+--</text>
-  <text class="node-name" x="90" y="220">Literal</text>
-  <text class="node-value" x="150" y="220">(4)</text>
-  <text class="type-label" x="180" y="220">dataType: Integer</text>
+  <!-- Edges from BinaryExpr (*) -->
+  <path class="edge" d="M 780 340 L 660 470"/>
+  <path class="edge" d="M 920 340 L 1030 470"/>
   
-  <!-- Note about precedence -->
-  <text class="note-text" x="20" y="258">* binds tighter than +, so 3 * 4 is evaluated first</text>
+  <!-- Left grandchild: Literal (3) -->
+  <rect class="node-box" x="460" y="480" width="400" height="80"/>
+  <text class="node-title" x="660" y="510">Literal</text>
+  <text class="node-prop" x="660" y="545">value: 3, type: Integer</text>
   
+  <!-- Right grandchild: Literal (4) -->
+  <rect class="node-box" x="930" y="480" width="160" height="80"/>
+  <text class="node-title" x="1010" y="510">Literal</text>
+  <text class="node-prop" x="1010" y="545">value: 4</text>
+  
+  <!-- Caption -->
+  <text class="caption" x="550" y="710">Figure: Parsing Example - Abstract Syntax Tree</text>
 </svg>

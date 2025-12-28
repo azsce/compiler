@@ -1,15 +1,9 @@
 ---
-title: "Mini Math Compiler"
-subtitle: "Analysis Phases Report - SCE 410 / Compilers"
-author:
-  - "Mostafa Khaled Mohamed Hassanin (73)"
-  - "Mohamed Ramadan Saeed Mahmoud (56)"
-  - "Ahmed Hosny Abdel Hameed (7)"
-  - "Mahmoud Mohamed Ahmed Hussein (70)"
-  - "Mohamed Shaaban Abdel Maqsoud El-Shenawy (57)"
-date: "December 2025"
-institute: "Al Azhar University - Systems and Computer Engineering"
-supervisor: "DR Ahmed Abd Al Aziz"
+title: ""
+subtitle: ""
+author: []
+date: ""
+institute: ""
 toc: true
 toc-depth: 2
 numbersections: true
@@ -36,6 +30,8 @@ header-includes:
     \usepackage{fvextra}
     \usepackage{float}
     \usepackage{graphicx}
+    \usepackage{fontspec}
+    \newfontfamily\arabicfont[Script=Arabic]{DejaVu Sans}
     % Code block settings - break long lines
     \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
     % Force figures to stay in place (not float to separate pages)
@@ -89,15 +85,65 @@ header-includes:
     % Header/Footer
     \usepackage{fancyhdr}
     \pagestyle{fancy}
-    \fancyhead[L]{\color{darkblue}\leftmark}
+    \fancyhead[L]{\includegraphics[height=0.7cm]{al-azhar-university-logo.png}}
+    \fancyhead[C]{\color{darkblue}\small\textbf{Al-Azhar University | Faculty of Engineering | SCE Department}}
     \fancyhead[R]{\color{darkblue}\thepage}
-    \fancyfoot[C]{\color{gray}\small Mini Math Compiler - SCE 410}
+    \fancyfoot[C]{\color{gray}\small Mini Math Compiler - SCE 410 / Compilers}
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\headrule}{\hbox to\headwidth{\color{darkblue}\leaders\hrule height \headrulewidth\hfill}}
     ```
 include-before:
   - |
     ```{=latex}
+    % Custom title page
+    \begin{titlepage}
+    \centering
+    \vspace*{0.2cm}
+    
+    % Logo
+    \includegraphics[width=0.2\textwidth]{al-azhar-university-logo.png}\\[0.6cm]
+    
+    % University name
+    {\LARGE\bfseries\color{darkblue} Al-Azhar University\par}
+    \vspace{0.4cm}
+    
+    % Faculty and Department
+    {\Large\bfseries Faculty of Engineering\par}
+    \vspace{0.3cm}
+    {\normalsize Systems and Computer Engineering Department\par}
+    \vspace{1cm}
+    
+    % Report title
+    {\LARGE\bfseries\color{darkblue} Mini Math Compiler\par}
+    \vspace{0.4cm}
+    {\large Analysis Phases Report\par}
+    \vspace{0.2cm}
+    {\normalsize SCE 410 / Compilers\par}
+    \vspace{1cm}
+    
+    % Student names
+    {\normalsize\bfseries Prepared by:\par}
+    \vspace{0.3cm}
+    {\small
+    \begin{tabular}{c}
+    Mostafa Khaled Mohamed Hassanin (73) \\
+    Mohamed Ramadan Saeed Mahmoud (56) \\
+    Ahmed Hosny Abdel Hameed (7) \\
+    Mahmoud Mohamed Ahmed Hussein (70) \\
+    Mohamed Shaaban Abdel Maqsoud El-Shenawy (57)
+    \end{tabular}
+    }
+    
+    \vfill
+    
+    % Supervisor and date
+    {\normalsize\bfseries Supervised by:\par}
+    \vspace{0.2cm}
+    {\normalsize DR Ahmed Abd Al Aziz\par}
+    \vspace{0.5cm}
+    {\normalsize December 2025\par}
+    
+    \end{titlepage}
     \newpage
     ```
 ---
